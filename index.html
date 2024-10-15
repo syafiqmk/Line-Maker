@@ -1,18 +1,48 @@
 <!DOCTYPE html>
 <html lang="id">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Membuat Garis dengan Mouse</title>
-        <style>
-            canvas {
-                border: 1px solid black;
-            }
-        </style>
-    </head>
-    <body>
-        <canvas id="myCanvas" width="600" height="400"></canvas>
-        <button id="showCoordinates">Tampilkan Koordinat</button>
-        <script src="script.js"></script>
-    </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membuat Garis di Atas Video</title>
+    <style>
+        body {
+            position: relative;
+        }
+
+        video {
+            width: 100%; /* Set lebar video ke 100% dari kontainer */
+            height: auto; /* Set tinggi otomatis untuk menjaga aspek rasio */
+            display: block;
+        }
+
+        canvas {
+            position: absolute; /* Agar kanvas berada di atas video */
+            top: 0;
+            left: 0;
+            /* pointer-events: none; Agar event mouse tidak mengganggu video */
+            border: 1px solid transparent; /* Border transparan untuk visualisasi */
+            z-index: 2;
+        }
+
+        .overlay {
+            position: absolute; /* Overlay untuk tombol di atas kanvas */
+            top: 0;
+            left: 0;
+            pointer-events: auto; /* Mengizinkan interaksi dengan tombol */
+        }
+
+        button {
+            margin-top: 10px; /* Margin untuk tombol */
+        }
+    </style>
+</head>
+<body>
+    <video id="myVideo" muted autoplay loop>
+        <source src="path/to/video.mp4" type="video/mp4"> <!-- Ubah dengan path video Anda -->
+        Browser Anda tidak mendukung elemen video.
+    </video>
+    <canvas id="myCanvas"></canvas>
+    <button id="showCoordinates">Tampilkan Koordinat</button>
+    <script src="script.js"></script>
+</body>
 </html>

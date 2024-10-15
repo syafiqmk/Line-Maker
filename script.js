@@ -1,6 +1,7 @@
 const canvas = document.getElementById('myCanvas');
 const ctx = canvas.getContext('2d');
 const button = document.getElementById('showCoordinates');
+const video = document.getElementById('myVideo');
 
 let lines = [
     { startX: 0, startY: 0, endX: 0, endY: 0, color: 'red' },  // Garis pertama
@@ -10,7 +11,14 @@ let lines = [
 let isDrawing = false;         // Menandakan apakah sedang menggambar
 let activeLineIndex = null;    // Menandakan garis mana yang aktif untuk diedit
 let activePoint = null;        // Menandakan titik mana yang sedang diedit
-let offsetX, offsetY;          // Offset untuk drag and drop
+let offsetX, offsetY;          // Offset untuk drag dan drop
+
+// Fungsi untuk mengatur ukuran kanvas
+function resizeCanvas() {
+    canvas.width = video.clientWidth;
+    canvas.height = video.clientHeight;
+    drawLines(); // Gambar ulang garis agar sesuai dengan ukuran baru
+}
 
 // Fungsi untuk menggambar garis
 function drawLines() {
@@ -155,3 +163,7 @@ canvas.addEventListener('mouseup', () => {
 function isPointNear(x1, y1, x2, y2, tolerance = 5) {
     return Math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2) < tolerance;
 }
+
+// Resize kanvas saat video dimuat dan saat jendela diubah ukurannya
+video.addEventListener('loadedmetadata', resizeCanvas); // Set ukuran saat metadata video dimuat
+window.addEventListener('resize', resizeCanvas); // Set ukuran saat jendela diubah ukurannya
